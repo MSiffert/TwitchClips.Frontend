@@ -1,0 +1,74 @@
+<div class="wrapper__table">
+
+  <div>
+    <div [hidden]="isLoading | async">
+      <table mat-table matSort [dataSource]="(clips | async)" multiTemplateDataRows>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="url">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Url </th>
+          <td mat-cell *matCellDef="let element"> <a target="_blank" [href]="element.url">{{element.url}}</a> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="broadcaster_name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Broadcaster </th>
+          <td mat-cell *matCellDef="let element"> {{element.broadcaster_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
+          <td mat-cell *matCellDef="let element"> {{element.created_at | date: "dd/MM/yyyy"}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="view_count">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Views </th>
+          <td mat-cell *matCellDef="let element"> {{element.view_count}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="download">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let element">
+            <a mat-stroked-button [href]="downloadClip(element)">
+              <fa-icon [icon]="['fa', 'download']"></fa-icon>
+            </a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="example-element-description">
+                <app-clips-viewer *ngIf="element === expandedElement" [clipId]="element.id"></app-clips-viewer>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+      </table>
+      <mat-paginator
+        length="1000"
+        pageSize="20"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="pageChange($event)"
+      ></mat-paginator>
+    </div>
+
+    <mat-card *ngIf="isLoading | async" style="display: flex; justify-content: center; align-items: center">
+      <mat-progress-spinner color="primary" mode="indeterminate">
+      </mat-progress-spinner>
+    </mat-card>
+  </div>
+
+</div>

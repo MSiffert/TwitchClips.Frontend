@@ -9,9 +9,9 @@ import { AppState } from 'src/app/app.state';
 import * as MostViewedClipsTableActions from '../../store/actions/mostViewedClipsTableState.actions';
 
 @Component({
-  selector: 'app-nav-left',
-  templateUrl: './nav-left.component.html',
-  styleUrls: ['./nav-left.component.css'],
+  selector: 'app-aside',
+  templateUrl: './aside.component.html',
+  styleUrls: ['./aside.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class NavLeftComponent implements OnInit {

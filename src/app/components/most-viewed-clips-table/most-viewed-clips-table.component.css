@@ -1,6 +1,6 @@
 .wrapper__table {
   display: grid;
-  grid-template-rows: 75px 1fr;
+  grid-template-rows: 1fr;
 }
 
 .filter__container {

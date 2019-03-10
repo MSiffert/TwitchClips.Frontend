@@ -1,8 +1,10 @@
+// Core
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
+// Angular
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,21 +17,24 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Store
 import { StoreModule } from '@ngrx/store';
 import { mostViewedClipsTableStateReducer } from './store/reducers/mostViewedClipsTableState.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { FetchCurrentEffect, FetchNextEffect, ChangeGameEffect, FetchPreviousEffect, ChangeSizeEffect } from './store/effects/mostViewedClipsTableState.effects';
-// import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+// Components
 import { ClipsProviderService } from './services/clips-provider.service';
 import { GameProviderService } from './services/game-provider.service';
-import { NavLeftComponent } from './components/nav-left/nav-left.component';
+import { NavLeftComponent } from './components/aside/aside.component';
 import { HeaderComponent } from './components/header/header.component';
-import { ClipTableComponent } from './components/clip-table/clip-table.component';
-import { ClipViewerComponent } from './components/clip-viewer/clip-viewer.component';
-import { NavTopComponent } from './components/nav-top/nav-top.component';
+import { ClipTableComponent } from './components/most-viewed-clips-table/most-viewed-clips-table.component';
+import { ClipViewerComponent } from './components/clips-viewer/clips-viewer.component';
+import { ArticleComponent } from './components/article/article.component';
+import { RecentClipsTableComponent } from './components/recent-clips-table/recent-clips-table.component';
 
 // Font-Awesome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -46,7 +51,8 @@ import { AppComponent } from './app.component';
     NavLeftComponent,
     ClipTableComponent,
     ClipViewerComponent,
-    NavTopComponent,
+    ArticleComponent,
+    RecentClipsTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +69,8 @@ import { AppComponent } from './app.component';
     FontAwesomeModule,
     MatCheckboxModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
     MatTabsModule,
     RouterModule.forRoot(
     [
@@ -75,9 +83,6 @@ import { AppComponent } from './app.component';
     EffectsModule.forFeature([
       FetchCurrentEffect, FetchNextEffect, FetchPreviousEffect, ChangeGameEffect, ChangeSizeEffect
     ])
-    /*StoreDevtoolsModule.instrument({
-      maxAge: 10
-    })*/
   ],
   providers: [
     GameProviderService,

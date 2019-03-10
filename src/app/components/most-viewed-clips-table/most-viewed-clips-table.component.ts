@@ -10,9 +10,9 @@ import * as ClipActions from '../../store/actions/mostViewedClipsTableState.acti
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-clip-table',
-  templateUrl: './clip-table.component.html',
-  styleUrls: ['./clip-table.component.css'],
+  selector: 'app-most-viewed-clips-table',
+  templateUrl: './most-viewed-clips-table.component.html',
+  styleUrls: ['./most-viewed-clips-table.component.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
@@ -43,16 +43,11 @@ export class ClipTableComponent implements OnInit {
   }
 
   public downloadClip(clip: Clip): string {
-    return this.getVideoDownloadUrl(clip.thumbnail_url);
-  }
-
-  private getVideoDownloadUrl(thumbnailUrl: string) {
-    const startIndex = thumbnailUrl.indexOf('-preview');
-    return thumbnailUrl.substring(0, startIndex) + '.mp4';
+    const startIndex = clip.thumbnail_url.indexOf('-preview');
+    return clip.thumbnail_url.substring(0, startIndex) + '.mp4';
   }
 
   public async pageChange(pageEvent: PageEvent) {
-    console.log(this.currentPageSize, pageEvent.pageSize);
     if (pageEvent.pageSize !== this.currentPageSize) {
       this.store.dispatch(new ClipActions.ChangeSize(pageEvent.pageSize));
       this.currentPageSize = pageEvent.pageSize;
