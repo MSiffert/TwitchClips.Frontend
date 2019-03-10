@@ -1,5 +1,7 @@
 import { createFeatureSelector } from '@ngrx/store';
-import { MostViewedClipsTableState } from 'src/app/store/models/most-viewed-clips-table-state.model';
+import { MostViewedClipsTable } from 'src/app/store/models/most-viewed-clips-table.model';
+import { ClipsFilter } from '../models/clips-filter.action';
 
-export const getMostViewedClipsTableState = createFeatureSelector<MostViewedClipsTableState>('mostViewedClipsTableState');
-export const getRecentClipsTableState = createFeatureSelector<MostViewedClipsTableState>('recentClipsTableState');
+export const getClipsFilterState = createFeatureSelector<ClipsFilter>('clipsFilterState');
+export const getMostViewedClipsTableState = createFeatureSelector<MostViewedClipsTable>('mostViewedClipsTableState');
+export const getRecentClipsTableState = createFeatureSelector<MostViewedClipsTable>('recentClipsTableState');

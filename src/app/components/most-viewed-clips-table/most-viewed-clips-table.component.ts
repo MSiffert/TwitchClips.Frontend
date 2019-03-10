@@ -6,7 +6,7 @@ import { PageEvent } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { getMostViewedClipsTableState } from '../../store/selectors/state.selectors';
-import * as ClipActions from '../../store/actions/mostViewedClipsTableState.actions';
+import * as ClipActions from '../../store/actions/most-viewed-clips-table.actions';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -39,7 +39,6 @@ export class ClipTableComponent implements OnInit {
 
     this.clips = mostViewedClipsTableState.pipe(map(result => result.clips));
     this.isLoading = mostViewedClipsTableState.pipe(map(result => result.isLoading));
-    this.store.dispatch(new ClipActions.FetchCurrent());
   }
 
   public downloadClip(clip: Clip): string {

@@ -11,11 +11,11 @@ import { GameResponse } from '../models/game-response.model';
 export class GameProviderService {
   public constructor(private httpClient: HttpClient) { }
 
-  public getGames(): Observable<Game[]> {
+  public getGames(): Observable<GameResponse> {
     try {
-      return this.httpClient.get<GameResponse>('https://twitchclips-api.azurewebsites.net/api/Token/games/top').pipe(map(result => result.data ));
+      return this.httpClient.get<GameResponse>('https://twitchclips-api.azurewebsites.net/api/Token/games/top');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 }

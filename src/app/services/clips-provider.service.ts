@@ -15,7 +15,7 @@ export class ClipsProviderService {
       const url = 'https://localhost:44362/api/Token/clips?gameId=' + gameId + '&take=' + take;
       return this.httpClient.get<ClipResponse>(url);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 

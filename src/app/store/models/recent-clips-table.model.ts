@@ -1,4 +1,4 @@
-import { Clip } from './../../models/clip.model';
+import { Clip } from '../../models/clip.model';
 
 export class RecentClipsTableState {
   public clips: Clip[];
@@ -14,5 +14,5 @@ export const initialRecentClipsTableState: RecentClipsTableState = {
   fetchFrom: new Date(),
   take: 20,
   isLoading: false,
-}
+};
 

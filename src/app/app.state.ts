@@ -1,6 +1,8 @@
-import { MostViewedClipsTableState } from './store/models/most-viewed-clips-table-state.model';
+import { MostViewedClipsTable } from './store/models/most-viewed-clips-table.model';
+import { ClipsFilter } from './store/models/clips-filter.action';
 
 export interface AppState {
-  readonly mostViewedClipsTableState: MostViewedClipsTableState;
-  readonly recentClipsTableState: MostViewedClipsTableState;
+  readonly clipsFilterState: ClipsFilter;
+  readonly mostViewedClipsTableState: MostViewedClipsTable;
+  readonly recentClipsTableState: MostViewedClipsTable;
 }

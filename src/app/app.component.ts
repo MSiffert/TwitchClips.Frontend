@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { GameProviderService } from './services/game-provider.service';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Game } from './models/game.model';
 
@@ -10,11 +9,8 @@ import { Game } from './models/game.model';
 })
 export class AppComponent implements OnInit {
 
-  public games: Observable<Game[]>;
-
-  public constructor(private gameProviderService: GameProviderService) { }
+  public constructor() { }
 
   public ngOnInit() {
-    this.games = this.gameProviderService.getGames();
   }
 }

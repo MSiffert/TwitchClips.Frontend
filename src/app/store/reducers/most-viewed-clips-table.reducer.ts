@@ -1,7 +1,7 @@
-import { initialMostViewedClipsTableState, MostViewedClipsTableState } from '../models/most-viewed-clips-table-state.model';
-import * as MostViewedClipsTableStateActions from '../actions/mostViewedClipsTableState.actions';
+import { initialMostViewedClipsTable, MostViewedClipsTable } from '../models/most-viewed-clips-table.model';
+import * as MostViewedClipsTableStateActions from '../actions/most-viewed-clips-table.actions';
 
-export function mostViewedClipsTableStateReducer(state: MostViewedClipsTableState = initialMostViewedClipsTableState, action: MostViewedClipsTableStateActions.Actions) {
+export function mostViewedClipsTableReducer(state: MostViewedClipsTable = initialMostViewedClipsTable, action: MostViewedClipsTableStateActions.Actions) {
   switch (action.type) {
     case MostViewedClipsTableStateActions.GET_STATE:
       return { ...state };
@@ -16,11 +16,7 @@ export function mostViewedClipsTableStateReducer(state: MostViewedClipsTableStat
       return { ...state, isLoading: true };
 
     case MostViewedClipsTableStateActions.CHANGE_SIZE:
-      console.log(action.payload);
       return { ...state, take: action.payload, isLoading: true };
-
-    case MostViewedClipsTableStateActions.CHANGE_GAME:
-      return { ...state, gameId: action.payload, isLoading: true };
 
     case MostViewedClipsTableStateActions.FETCH_COMPLETED_DUC:
       return { ...state, clips: action.payload.data, isLoading: false };

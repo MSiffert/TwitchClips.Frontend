@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ClipResponse } from 'src/app/models/clip-response.model';
-import { MostViewedClipsTableState } from 'src/app/store/models/most-viewed-clips-table-state.model';
+import { MostViewedClipsTable } from 'src/app/store/models/most-viewed-clips-table.model';
 
 export const GET_STATE           = '[MostViewed] Get State';
 
@@ -12,16 +12,15 @@ export const FETCH_COMPLETED_DUC = '[MostViewed] Fetch Completed Dont Update Cur
 export const FETCH_FAILED        = '[MostViewed] Fetch Failed';
 
 export const CHANGE_SIZE         = '[MostViewed] Change Size';
-export const CHANGE_GAME         = '[MostViewed] Change Game';
 
 export class GetState implements Action {
   public readonly type = GET_STATE;
-  constructor(public payload: MostViewedClipsTableState) {}
+  constructor(public payload: MostViewedClipsTable) {}
 }
 
 export class FetchCurrent implements Action {
   public readonly type = FETCH_CURRENT;
-  constructor() {}
+  constructor() { }
 }
 
 export class FetchNext implements Action {
@@ -54,10 +53,5 @@ export class ChangeSize implements Action {
   constructor(public payload: number) {}
 }
 
-export class ChangeGame implements Action {
-  public readonly type = CHANGE_GAME;
-  constructor(public payload: string) {}
-}
-
 export type Actions = GetState | FetchCurrent | FetchNext | FetchPrevious | FetchCompletedDuc |
-                      FetchCompletedUc | FetchFailed | ChangeGame | ChangeSize;
+                      FetchCompletedUc | FetchFailed | ChangeSize;
