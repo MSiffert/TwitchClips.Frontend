@@ -8,6 +8,8 @@ import { AppState } from 'src/app/app.state';
 import { getMostViewedClipsTableState } from '../../store/selectors/state.selectors';
 import * as ClipActions from '../../store/actions/most-viewed-clips-table.actions';
 import { map } from 'rxjs/operators';
+import { getClipsFilterState } from '../../store/selectors/state.selectors';
+import * as MostViewedClipsTableActions from '../../store/actions/most-viewed-clips-table.actions';
 
 @Component({
   selector: 'app-most-viewed-clips-table',
@@ -37,8 +39,18 @@ export class ClipTableComponent implements OnInit {
   ngOnInit() {
     const mostViewedClipsTableState = this.store.select(getMostViewedClipsTableState);
 
+    this.observeGameChanges();
+
     this.clips = mostViewedClipsTableState.pipe(map(result => result.clips));
     this.isLoading = mostViewedClipsTableState.pipe(map(result => result.isLoading));
+  }
+
+  private observeGameChanges() {
+    this.store.select(getClipsFilterState).subscribe(res => {
+      if (res != null && res.games.length !== 0) {
+        this.store.dispatch(new MostViewedClipsTableActions.FetchNext());
+      }
+    });
   }
 
   public downloadClip(clip: Clip): string {

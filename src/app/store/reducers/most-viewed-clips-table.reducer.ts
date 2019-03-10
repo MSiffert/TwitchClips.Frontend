@@ -3,9 +3,6 @@ import * as MostViewedClipsTableStateActions from '../actions/most-viewed-clips-
 
 export function mostViewedClipsTableReducer(state: MostViewedClipsTable = initialMostViewedClipsTable, action: MostViewedClipsTableStateActions.Actions) {
   switch (action.type) {
-    case MostViewedClipsTableStateActions.GET_STATE:
-      return { ...state };
-
     case MostViewedClipsTableStateActions.FETCH_CURRENT:
       return { ...state, isLoading: true };
 

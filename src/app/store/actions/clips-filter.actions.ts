@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { GameResponse } from 'src/app/models/game-response.model';
+import { Game } from 'src/app/models/game.model';
 
 export const FETCH_GAMES              = '[ClipFilter] Fetch Games';
 export const FETCH_GAMES_COMPLETE     = '[ClipFilter] Fetch Games Complete';
@@ -24,7 +25,7 @@ export class FetchGamesFailed implements Action {
 
 export class SetSelectedGame implements Action {
   public readonly type = SET_SELECTED_GAME;
-  constructor(public payload: string) {}
+  constructor(public payload: Game) {}
 }
 
 export class ChangeStreamer implements Action {

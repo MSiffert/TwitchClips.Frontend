@@ -22,11 +22,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Store
 import { StoreModule } from '@ngrx/store';
-import { mostViewedClipsTableReducer } from './store/reducers/most-viewed-clips-table.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { FetchCurrentEffect, FetchNextEffect, FetchPreviousEffect, ChangeSizeEffect } from './store/effects/most-viewed-clips-table.effects';
 import { FetchGamesEffect } from './store/effects/clips-filter.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers } from './app.state';
 
 // Components
 import { ClipsProviderService } from './services/clips-provider.service';
@@ -45,7 +45,6 @@ import { faDownload, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 
 import { AppComponent } from './app.component';
-import { clipsFilterReducer } from './store/reducers/clips-filter.reducer';
 
 @NgModule({
   declarations: [
@@ -80,16 +79,14 @@ import { clipsFilterReducer } from './store/reducers/clips-filter.reducer';
       { path: '', component: AppComponent},
     ]
     ),
-    StoreModule.forRoot({}),
-    StoreModule.forFeature('mostViewedClipsTableState', mostViewedClipsTableReducer),
-    StoreModule.forFeature('clipsFilterState', clipsFilterReducer),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     EffectsModule.forFeature([
       FetchCurrentEffect, FetchNextEffect, FetchPreviousEffect, ChangeSizeEffect, FetchGamesEffect
     ]),
-    StoreDevtoolsModule.instrument({
+    /*StoreDevtoolsModule.instrument({
       maxAge: 5
-    })
+    })*/
   ],
   providers: [
     GameProviderService,
@@ -99,8 +96,6 @@ import { clipsFilterReducer } from './store/reducers/clips-filter.reducer';
 })
 export class AppModule {
   constructor() {
-    // Add an icon to the library for convenient access in other components
     library.add(<IconDefinition>faDownload);
-    library.add(<IconDefinition>faAngleUp);
   }
 }

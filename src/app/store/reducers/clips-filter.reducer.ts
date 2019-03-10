@@ -13,9 +13,12 @@ export function clipsFilterReducer(state: ClipsFilter = initialClipsFilter, acti
       return { ...state };
 
     case ClipsFilterActions.SET_SELECTED_GAME:
-      return { ...state, gameId: action.payload, streamerId: null };
+      return { ...state, selectedGame: action.payload, streamerId: null };
 
     case ClipsFilterActions.CHANGE_STREAMER:
       return { ...state, gameId: null, streamerId: action.payload };
+
+    default:
+      return state;
   }
 }
