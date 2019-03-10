@@ -1,0 +1,31 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: .5rem 1rem;
+}
+
+.navbar-brand {
+  color: rgba(0,0,0,.9);
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  text-decoration: none;
+  word-break: break-all;
+  white-space: normal;
+}
+
+a {
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif
+}
