@@ -1,12 +1,13 @@
 import { Action } from '@ngrx/store';
 import { GameResponse } from 'src/app/models/game-response.model';
 import { Game } from 'src/app/models/game.model';
+import { User } from 'src/app/models/users.model';
 
 export const FETCH_GAMES              = '[ClipFilter] Fetch Games';
 export const FETCH_GAMES_COMPLETE     = '[ClipFilter] Fetch Games Complete';
 export const FETCH_GAMES_FAILED       = '[ClipFilter] Fetch Games Failed';
 export const SET_SELECTED_GAME        = '[ClipFilter] Set Game';
-export const CHANGE_STREAMER          = '[ClipFilter] Change Streamer';
+export const SET_SELECTED_USER        = '[ClipFilter] Set User';
 
 export class FetchGames implements Action {
   public readonly type = FETCH_GAMES;
@@ -28,9 +29,9 @@ export class SetSelectedGame implements Action {
   constructor(public payload: Game) {}
 }
 
-export class ChangeStreamer implements Action {
-  public readonly type = CHANGE_STREAMER;
-  constructor(public payload: string) {}
+export class SetSelectedUser implements Action {
+  public readonly type = SET_SELECTED_USER;
+  constructor(public payload: User) {}
 }
 
-export type Actions = FetchGames | FetchGamesComplete | FetchGamesFailed | SetSelectedGame | ChangeStreamer;
+export type Actions = FetchGames | FetchGamesComplete | FetchGamesFailed | SetSelectedGame | SetSelectedUser;

@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-clips-viewer',
   templateUrl: './clips-viewer.component.html',
-  styleUrls: ['./clips-viewer.component.css']
+  styleUrls: ['./clips-viewer.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ClipViewerComponent implements OnInit {
 

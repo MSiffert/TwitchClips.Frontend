@@ -19,7 +19,7 @@ export class FetchCurrentEffect {
         withLatestFrom(this.store.select(getMostViewedClipsTableState), this.store.select(getClipsFilterState)),
         map(([action, mostViewedClipsTableState, clipsFilterState]) => ({ mostViewedClipsTableState: mostViewedClipsTableState, clipsFilterState: clipsFilterState })),
         switchMap(state => {
-            return from(this.clipProviderService.getClips(state.clipsFilterState.selectedGame.id, state.mostViewedClipsTableState.take).pipe(
+            return from(this.clipProviderService.getClips(state.clipsFilterState, state.mostViewedClipsTableState.take).pipe(
                 map(apiResult => new MostViewedClipsTableActions.FetchCompletedUc(apiResult)),
                 catchError(error => of(new MostViewedClipsTableActions.FetchFailed(error)))
             ));
@@ -36,7 +36,7 @@ export class FetchNextEffect {
     withLatestFrom(this.store.select(getMostViewedClipsTableState), this.store.select(getClipsFilterState)),
     map(([action, mostViewedClipsTableState, clipsFilterState]) => ({ mostViewedClipsTableState: mostViewedClipsTableState, clipsFilterState: clipsFilterState })),
         switchMap((state) => {
-            return from(this.clipProviderService.getNextClips(state.clipsFilterState.selectedGame.id, state.mostViewedClipsTableState.cursor, state.mostViewedClipsTableState.take).pipe(
+            return from(this.clipProviderService.getNextClips(state.clipsFilterState, state.mostViewedClipsTableState.cursor, state.mostViewedClipsTableState.take).pipe(
                 map(apiResult => new MostViewedClipsTableActions.FetchCompletedUc(apiResult)),
                 catchError(error => of(new MostViewedClipsTableActions.FetchFailed(error)))
             ));
@@ -53,7 +53,7 @@ export class FetchPreviousEffect {
     withLatestFrom(this.store.select(getMostViewedClipsTableState), this.store.select(getClipsFilterState)),
     map(([action, mostViewedClipsTableState, clipsFilterState]) => ({ mostViewedClipsTableState: mostViewedClipsTableState, clipsFilterState: clipsFilterState })),
         switchMap((state) => {
-            return from(this.clipProviderService.getPreviousClips(state.clipsFilterState.selectedGame.id, state.mostViewedClipsTableState.cursor, state.mostViewedClipsTableState.take).pipe(
+            return from(this.clipProviderService.getPreviousClips(state.clipsFilterState, state.mostViewedClipsTableState.cursor, state.mostViewedClipsTableState.take).pipe(
                 map(apiResult => new MostViewedClipsTableActions.FetchCompletedUc(apiResult)),
                 catchError(error => of(new MostViewedClipsTableActions.FetchFailed(error)))
             ));
@@ -70,7 +70,7 @@ export class ChangeSizeEffect {
     withLatestFrom(this.store.select(getMostViewedClipsTableState), this.store.select(getClipsFilterState)),
     map(([action, mostViewedClipsTableState, clipsFilterState]) => ({ mostViewedClipsTableState: mostViewedClipsTableState, clipsFilterState: clipsFilterState })),
         switchMap((state) => {
-            return from(this.clipProviderService.getNextClips(state.clipsFilterState.selectedGame.id, state.mostViewedClipsTableState.cursor, state.mostViewedClipsTableState.take).pipe(
+            return from(this.clipProviderService.getNextClips(state.clipsFilterState, state.mostViewedClipsTableState.cursor, state.mostViewedClipsTableState.take).pipe(
                 map(apiResult => new MostViewedClipsTableActions.FetchCompletedDuc(apiResult)),
                 catchError(error => of(new MostViewedClipsTableActions.FetchFailed(error)))
             ));

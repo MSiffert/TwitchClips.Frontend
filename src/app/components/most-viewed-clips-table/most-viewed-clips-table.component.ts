@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Clip } from 'src/app/models/clip.model';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -15,6 +15,7 @@ import * as MostViewedClipsTableActions from '../../store/actions/most-viewed-cl
   selector: 'app-most-viewed-clips-table',
   templateUrl: './most-viewed-clips-table.component.html',
   styleUrls: ['./most-viewed-clips-table.component.css'],
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
@@ -32,7 +33,7 @@ export class ClipTableComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'url', 'broadcaster_name', 'created_at', 'view_count', 'download'];
   public expandedElement: Clip | null;
   public pageSizeOptions: number[] = [5, 10, 25, 100];
-  private currentPageSize = 25;
+  private selectedPageSize = 25;
 
   constructor(private store: Store<AppState>) { }
 
@@ -48,7 +49,7 @@ export class ClipTableComponent implements OnInit {
   private observeGameChanges() {
     this.store.select(getClipsFilterState).subscribe(res => {
       if (res != null && res.games.length !== 0) {
-        this.store.dispatch(new MostViewedClipsTableActions.FetchNext());
+        this.store.dispatch(new MostViewedClipsTableActions.FetchCurrent());
       }
     });
   }
@@ -59,21 +60,21 @@ export class ClipTableComponent implements OnInit {
   }
 
   public async pageChange(pageEvent: PageEvent) {
-    if (pageEvent.pageSize !== this.currentPageSize) {
+    if (pageEvent.pageSize !== this.selectedPageSize) {
       this.store.dispatch(new ClipActions.ChangeSize(pageEvent.pageSize));
-      this.currentPageSize = pageEvent.pageSize;
+      this.selectedPageSize = pageEvent.pageSize;
       return;
     }
 
     if (pageEvent.previousPageIndex < pageEvent.pageIndex) {
       this.store.dispatch(new ClipActions.FetchNext());
-      this.currentPageSize = pageEvent.pageSize;
+      this.selectedPageSize = pageEvent.pageSize;
       return;
     }
 
     if (pageEvent.previousPageIndex > pageEvent.pageIndex) {
       this.store.dispatch(new ClipActions.FetchPrevious());
-      this.currentPageSize = pageEvent.pageSize;
+      this.selectedPageSize = pageEvent.pageSize;
       return;
     }
   }

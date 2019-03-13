@@ -43,3 +43,14 @@
 .apply__button__container button {
   width: 100%;
 }
+
+.select-placeholder-container {
+  display: flex;
+  align-items: center;
+}
+
+.option__image {
+  height: 30px;
+  float: right;
+  padding: 10px 0;
+}

@@ -19,32 +19,38 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Store
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { FetchCurrentEffect, FetchNextEffect, FetchPreviousEffect, ChangeSizeEffect } from './store/effects/most-viewed-clips-table.effects';
 import { FetchGamesEffect } from './store/effects/clips-filter.effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './app.state';
 
 // Components
-import { ClipsProviderService } from './services/clips-provider.service';
-import { GameProviderService } from './services/game-provider.service';
 import { NavLeftComponent } from './components/aside/aside.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ClipTableComponent } from './components/most-viewed-clips-table/most-viewed-clips-table.component';
 import { ClipViewerComponent } from './components/clips-viewer/clips-viewer.component';
 import { ArticleComponent } from './components/article/article.component';
 import { RecentClipsTableComponent } from './components/recent-clips-table/recent-clips-table.component';
+import { LoginComponent } from './components/login/login.component';
+import { CompleteAuthenticationComponent } from './components/complete-authentication/complete-authentication.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
+// Providers
+import { ClipsProviderService } from './services/clips-provider.service';
+import { GameProviderService } from './services/game-provider.service';
+import { UsersProviderService } from './services/users-provider.service';
 
 // Font-Awesome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library, IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faDownload, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 import { AppComponent } from './app.component';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +61,9 @@ import { AppComponent } from './app.component';
     ClipViewerComponent,
     ArticleComponent,
     RecentClipsTableComponent,
+    LoginComponent,
+    CompleteAuthenticationComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,11 +81,16 @@ import { AppComponent } from './app.component';
     MatCheckboxModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
+    MatAutocompleteModule,
     MatCardModule,
     MatTabsModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot(
     [
-      { path: '', component: AppComponent},
+      { path: 'login', component: LoginComponent},
+      { path: 'complete_authentication', component: CompleteAuthenticationComponent},
+      { path: '', component: MainComponent},
     ]
     ),
     StoreModule.forRoot(reducers),
@@ -89,6 +103,7 @@ import { AppComponent } from './app.component';
     })*/
   ],
   providers: [
+    UsersProviderService,
     GameProviderService,
     ClipsProviderService
   ],

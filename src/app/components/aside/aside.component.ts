@@ -1,13 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Game } from 'src/app/models/game.model';
-import { Observable, Subscribable, Subscription } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 import { ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { getClipsFilterState } from '../../store/selectors/state.selectors';
 import * as ClipsFilterActions from '../../store/actions/clips-filter.actions';
-import { map, first } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { UsersProviderService } from 'src/app/services/users-provider.service';
+import { User } from 'src/app/models/users.model';
 
 @Component({
   selector: 'app-aside',
@@ -15,18 +18,37 @@ import { map, first } from 'rxjs/operators';
   styleUrls: ['./aside.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class NavLeftComponent implements OnInit {
+export class NavLeftComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('inp') input: ElementRef;
   public displayedColumns: string[] = ['select', 'name'];
   public selection: SelectionModel<Game>;
   public games = new Observable<Game[]>();
+  public selectedStreamerControl = new FormControl();
+  public options: Observable<User[]>;
+  public loadingIndicator = true;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>, private userProviderService: UsersProviderService) { }
 
   ngOnInit() {
     this.games = this.store.select(getClipsFilterState).pipe(map(res => res.games));
     this.setInitialSelectionOnFetchComplete();
     this.store.dispatch(new ClipsFilterActions.FetchGames());
+  }
+
+  ngAfterViewInit(): void {
+    let currentValue;
+
+    this.options = this.selectedStreamerControl.valueChanges.pipe(switchMap(event => {
+      currentValue = event;
+      this.loadingIndicator = true;
+      return timer(400);
+    })).pipe(switchMap(() => {
+      return this.userProviderService.getGames(currentValue);
+    })).pipe(map(userResponse => {
+      this.loadingIndicator = false;
+      return userResponse.data.length > 0 ? [userResponse.data[0]] : [];
+    }));
   }
 
   private setInitialSelectionOnFetchComplete() {
@@ -37,6 +59,10 @@ export class NavLeftComponent implements OnInit {
         subscription.unsubscribe();
       }
     });
+  }
+
+  public clickedOption($event: User) {
+    this.store.dispatch(new ClipsFilterActions.SetSelectedUser($event));
   }
 
   public applyConfiguration() {

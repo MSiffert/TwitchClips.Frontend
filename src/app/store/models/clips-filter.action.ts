@@ -1,13 +1,14 @@
 import { Game } from 'src/app/models/game.model';
+import { User } from 'src/app/models/users.model';
 
 export class ClipsFilter {
   public games: Game[];
   public selectedGame: Game;
-  public streamerId: string;
+  public selectedUser: User;
 }
 
 export const initialClipsFilter: ClipsFilter = {
   games: [],
-  streamerId: null,
+  selectedUser: null,
   selectedGame: null
 };
